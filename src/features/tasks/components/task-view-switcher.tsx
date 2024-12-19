@@ -9,8 +9,11 @@ import { DottedSeparator } from "@/components/dotted-separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { DataFilters } from "@/components/data-filters";
-import { useCreateTaskModal } from "../hooks/use-create-project-modal";
+import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 import { useTaskFilters } from "../hooks/use-task-filters";
+import { DataTable } from "./data-table";
+import { DataKanban } from "./data-kanban";
+import { colums } from "./columns";
 
 export const TaskViewSwitcher = () => {
   const [{ projectId, assigneeId, status, dueDate }] = useTaskFilters();
@@ -61,10 +64,10 @@ export const TaskViewSwitcher = () => {
         ) : (
           <>
             <TabsContent value="table" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataTable columns={colums} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataKanban data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="calendar" className="mt-0">
               {JSON.stringify(tasks)}
